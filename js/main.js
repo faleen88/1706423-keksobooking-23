@@ -1,14 +1,15 @@
 // https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 
-function getRandom(min, max, simbolsAfterComma) {
+function getRandomDecimal(min, max, simbolsAfterComma = 0) {
   if (min >= max || min < 0 || max < 0) {
     throw 'Неверные параметры';
   }
-  return (Math.random() * (max - min) + min).toFixed(simbolsAfterComma);
+  const randomNumber = (Math.random() * (max - min) + min).toFixed(simbolsAfterComma);
+  return Number(randomNumber);
 }
 
 function getRandomInteger(min, max) {
-  return Math.floor(getRandom(min, max));
+  return Math.floor(getRandomDecimal(min, max));
 }
 
-getRandomInteger();
+getRandomInteger(1, 10);
