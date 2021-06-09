@@ -72,22 +72,42 @@ const PHOTOS = [
 
 const SIMILAR_ADVERTISEMENT_QUANTITY = 10;
 
-let avatars = [];
-do {
+const avatars = [];
+
+/**
+ * Возвращает массив адресов аватарок
+ *
+ * @returns {Array} - массив адресов аватарок
+ */
+
+function createArray() {
   let image;
-  const userNumber = getRandomInteger(1, 10);
-  if (userNumber < 10) {
-    image = 'img/avatars/user0' + userNumber + '.png';
-  } else {
-    image = 'img/avatars/user' + userNumber + '.png';
+  for (let index = 1; index <= 10; index++) {
+    if (index < 10) {
+      // eslint-disable-next-line prefer-template
+      image = 'img/avatars/user0' + index + '.png';
+    } else {
+      // eslint-disable-next-line prefer-template
+      image = 'img/avatars/user' + index + '.png';
+    }
+    avatars.push(image);
   }
-  avatars.push(image);
-  avatars = avatars.filter((item, index) => {
-    return avatars.indexOf(item) === index;
-  });
-} while (avatars.length < 10);
+  return avatars;
+}
+
+/**
+ * Возвращает перемешанный массив
+ *
+ * @param {Array} array - массив, значения которого нужно перемешать
+ * @returns {Array} - перемешанный массив
+ */
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
 
 let indexArr = 0;
+createArray();
+shuffle(avatars);
 
 /**
  * Возвращает объект, описывающий автора
@@ -136,6 +156,7 @@ const coordinates = createLocation();
 function createOffer() {
   return {
     title: getRandomArrayElement(TITLE),
+    // eslint-disable-next-line prefer-template
     address: coordinates.lat + ', ' + coordinates.lng,
     price: getRandomInteger(0, 1000000),
     type: getRandomArrayElement(TYPE_HOUSING),
@@ -164,3 +185,6 @@ function createAdvertisement() {
 }
 
 const similarAdvertisements = new Array(SIMILAR_ADVERTISEMENT_QUANTITY).fill(null).map(() => createAdvertisement());
+
+// Чтобы убрать ошибку ESLint
+shuffle(similarAdvertisements);
