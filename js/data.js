@@ -42,7 +42,7 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
-const SIMILAR_ADVERTISEMENT_QUANTITY = 10;
+const SIMILAR_ADVERTISEMENTS_QUANTITY = 10;
 
 /**
  * Возвращает массив адресов аватарок
@@ -50,17 +50,15 @@ const SIMILAR_ADVERTISEMENT_QUANTITY = 10;
  * @returns {Array} - массив адресов аватарок
  */
 
-function createArray() {
+function createArray(quantity) {
   const arrayImage = [];
   let image;
-  for (let index = 1; index <= 10; index++) {
-    (index < 10) ? image = `img/avatars/user0${index}.png` : image = `img/avatars/user${index}.png`;
+  for (let index = 1; index <= quantity; index++) {
+    image = (index < 10) ? `img/avatars/user0${index}.png` : `img/avatars/user${index}.png`;
     arrayImage.push(image);
   }
   return arrayImage;
 }
-
-let counter = 0;
 
 /**
  * Возвращает объект, описывающий автора
@@ -69,9 +67,9 @@ let counter = 0;
  * @returns {Object}
  */
 
-function createAuthor(array) {
+function createAuthor(array, indexArray) {
   return {
-    avatar: array[counter++],
+    avatar: array[indexArray++],
   };
 }
 
@@ -129,10 +127,10 @@ function createOffer(position) {
  * @returns {Object}
  */
 
-function createAdvertisement(array) {
+function createAdvertisement(array, indexArray) {
   const coordinates = createLocation();
   return {
-    author: createAuthor(array),
+    author: createAuthor(array, indexArray),
     offer: createOffer(coordinates),
     location: coordinates,
   };
@@ -144,13 +142,13 @@ function createAdvertisement(array) {
  * @returns {Array} - массив, похожих объявлений
  */
 
-function getArrayAdvertisements() {
-  const avatars = shuffle(createArray());
+function getAdvertisements(quantity) {
+  const avatars = shuffle(createArray(quantity));
   const similarAdvertisements = [];
-  for (let index = 0; index < SIMILAR_ADVERTISEMENT_QUANTITY; index++) {
-    similarAdvertisements.push(createAdvertisement(avatars));
+  for (let index = 0; index < quantity; index++) {
+    similarAdvertisements.push(createAdvertisement(avatars, index));
   }
   return similarAdvertisements;
 }
 
-getArrayAdvertisements();
+export {getAdvertisements, SIMILAR_ADVERTISEMENTS_QUANTITY};
