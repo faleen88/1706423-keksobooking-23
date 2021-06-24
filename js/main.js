@@ -1,4 +1,4 @@
 import {getAdvertisements, SIMILAR_ADVERTISEMENTS_QUANTITY} from './data.js';
-import './popups-advertisements.js';
+import {createCardAdvertisement} from './popups-advertisements.js';
 
-getAdvertisements(SIMILAR_ADVERTISEMENTS_QUANTITY);
+createCardAdvertisement(getAdvertisements(SIMILAR_ADVERTISEMENTS_QUANTITY));
