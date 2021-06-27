@@ -8,8 +8,6 @@ function addFormDisabled() {
   });
 }
 
-addFormDisabled();
-
 function removeFormDisabled() {
   formAdvertisement.classList.remove('ad-form--disabled');
   interactiveElements.forEach((element) => {
@@ -17,4 +15,4 @@ function removeFormDisabled() {
   });
 }
 
-removeFormDisabled();
+export {addFormDisabled, removeFormDisabled};

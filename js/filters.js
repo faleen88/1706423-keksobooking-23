@@ -8,8 +8,6 @@ function addFiltersDisabled() {
   });
 }
 
-addFiltersDisabled();
-
 function removeFiltersDisabled() {
   mapFilters.classList.remove('map__filters--disabled');
   filterElements.forEach((element) => {
@@ -17,5 +15,5 @@ function removeFiltersDisabled() {
   });
 }
 
-removeFiltersDisabled();
+export {addFiltersDisabled, removeFiltersDisabled};
 
