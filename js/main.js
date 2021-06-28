@@ -1,4 +1,14 @@
 import {getAdvertisements, SIMILAR_ADVERTISEMENTS_QUANTITY} from './data.js';
-import './popups-advertisements.js';
+import {createCardAdvertisement} from './popup-advertisement.js';
+import {addFormDisabled, removeFormDisabled} from './form.js';
+import {addFiltersDisabled, removeFiltersDisabled} from './filters.js';
 
-getAdvertisements(SIMILAR_ADVERTISEMENTS_QUANTITY);
+addFormDisabled();
+addFiltersDisabled();
+
+removeFormDisabled();
+removeFiltersDisabled();
+
+getAdvertisements(SIMILAR_ADVERTISEMENTS_QUANTITY).forEach((index) => {
+  createCardAdvertisement(index);
+});
