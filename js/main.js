@@ -9,6 +9,4 @@ addFiltersDisabled();
 removeFormDisabled();
 removeFiltersDisabled();
 
-getAdvertisements(SIMILAR_ADVERTISEMENTS_QUANTITY).forEach((index) => {
-  createCardAdvertisement(index);
-});
+createCardAdvertisement(getAdvertisements(SIMILAR_ADVERTISEMENTS_QUANTITY)[0]);
