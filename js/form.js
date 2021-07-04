@@ -3,6 +3,52 @@ const MAX_TITLE_LENGTH = 100;
 const MIN_PRICE_VALUE = 0;
 const MAX_PRICE_VALUE = 1000000;
 
+const validCapaсities = [
+  {
+    rooms: '1',
+    guests: ['1'],
+    message: 'Только для 1-ого гостя.',
+  },
+  {
+    rooms: '2',
+    guests: ['1', '2'],
+    message: 'Только для 1-ого или 2-х гостей.',
+  },
+  {
+    rooms: '3',
+    guests: ['1', '2', '3'],
+    message: 'Только для 1-ого, 2-х или 3-х гостей.',
+  },
+  {
+    rooms: '100',
+    guests: ['0'],
+    message: 'Только вариант не для гостей.',
+  },
+];
+
+const minPrisesHousing = [
+  {
+    type: 'bungalow',
+    prise: '0',
+  },
+  {
+    type: 'flat',
+    prise: '1000',
+  },
+  {
+    type: 'hotel',
+    prise: '3000',
+  },
+  {
+    type: 'house',
+    prise: '5000',
+  },
+  {
+    type: 'palace',
+    prise: '10000',
+  },
+];
+
 const formAdvertisement = document.querySelector('.ad-form');
 const interactiveElements = formAdvertisement.querySelectorAll('fieldset');
 
@@ -55,47 +101,63 @@ userPriceInput.addEventListener('input', () => {
 const userQuantityRooms = formAdvertisement.querySelector('#room_number');
 const userCapacity = formAdvertisement.querySelector('#capacity');
 
-function getValidCapacity() {
-  switch(userQuantityRooms.value) {
-    case '1':
-      if (userCapacity.value === '2' || userCapacity.value === '3' || userCapacity.value === '0') {
-        userCapacity.setCustomValidity('Только для 1-ого гостя.');
-      } else {
+function getValidCapacity(capaсities) {
+  for (let index = 0; index < capaсities.length; index++) {
+    if (userQuantityRooms.value === capaсities[index].rooms) {
+      let isValueValid = false;
+      capaсities[index].guests.forEach((value) =>{
+        if (userCapacity.value === value) {
+          isValueValid = true;
+        }
+      });
+      if (isValueValid) {
         userCapacity.setCustomValidity('');
-      }
-      break;
-    case '2':
-      if (userCapacity.value === '3' || userCapacity.value === '0') {
-        userCapacity.setCustomValidity('Только для 1-ого или 2-х гостей.');
       } else {
-        userCapacity.setCustomValidity('');
+        userCapacity.setCustomValidity(capaсities[index].message);
       }
-      break;
-    case '3':
-      if (userCapacity.value === '0') {
-        userCapacity.setCustomValidity('Только для 1-ого, 2-х или 3-х гостей.');
-      } else {
-        userCapacity.setCustomValidity('');
-      }
-      break;
-    case '100':
-      if (userCapacity.value === '1' || userCapacity.value === '2' || userCapacity.value === '3') {
-        userCapacity.setCustomValidity('Только вариант не для гостей.');
-      } else {
-        userCapacity.setCustomValidity('');
-      }
+    }
   }
 
   userQuantityRooms.reportValidity();
   userCapacity.reportValidity();
 }
 
-getValidCapacity();
+getValidCapacity(validCapaсities);
 userQuantityRooms.addEventListener('change', () => {
-  getValidCapacity();
+  getValidCapacity(validCapaсities);
 });
 userCapacity.addEventListener('change', () => {
-  getValidCapacity();
+  getValidCapacity(validCapaсities);
+});
+
+const userTypeHousing = formAdvertisement.querySelector('#type');
+
+const getMinPrice = (prices) => {
+  for (let index = 0; index < prices.length; index++) {
+    if (userTypeHousing.value === prices[index].type) {
+      userPriceInput.placeholder = prices[index].prise;
+      userPriceInput.min = prices[index].prise;
+    }
+  }
+};
+
+userTypeHousing.addEventListener('change', () => {
+  getMinPrice(minPrisesHousing);
+});
+
+const userTimeIn = formAdvertisement.querySelector('#timein');
+const userTimeOut = formAdvertisement.querySelector('#timeout');
+
+const getTimeInOut = (valueTime1, valueTime2) => {
+  valueTime2.value = valueTime1.value;
+};
+
+userTimeIn.addEventListener('change', () => {
+  getTimeInOut(userTimeIn, userTimeOut);
+});
+
+userTimeOut.addEventListener('change', () => {
+  getTimeInOut(userTimeOut, userTimeIn);
 });
 
 export {addFormDisabled, removeFormDisabled};
