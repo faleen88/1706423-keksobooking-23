@@ -145,8 +145,8 @@ function createAdvertisement(array, indexArray) {
 function getAdvertisements(quantity) {
   const avatars = shuffle(createArray(quantity));
   const similarAdvertisements = [];
-  for (let index = 0; index < quantity; index++) {
-    similarAdvertisements.push(createAdvertisement(avatars, index));
+  for (let i = 0; i < quantity; i++) {
+    similarAdvertisements.push(createAdvertisement(avatars, i));
   }
   return similarAdvertisements;
 }

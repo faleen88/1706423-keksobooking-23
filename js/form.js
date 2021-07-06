@@ -1,3 +1,5 @@
+import {CENTER_TOKIO_COORDINATES, resetMarker} from './map.js';
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MIN_PRICE_VALUE = 0;
@@ -5,23 +7,23 @@ const MAX_PRICE_VALUE = 1000000;
 
 const validCapaсities = [
   {
-    rooms: '1',
-    guests: ['1'],
+    rooms: 1,
+    guests: [1],
     message: 'Только для 1-ого гостя.',
   },
   {
-    rooms: '2',
-    guests: ['1', '2'],
+    rooms: 2,
+    guests: [1, 2],
     message: 'Только для 1-ого или 2-х гостей.',
   },
   {
-    rooms: '3',
-    guests: ['1', '2', '3'],
+    rooms: 3,
+    guests: [1, 2, 3],
     message: 'Только для 1-ого, 2-х или 3-х гостей.',
   },
   {
-    rooms: '100',
-    guests: ['0'],
+    rooms: 100,
+    guests: [0],
     message: 'Только вариант не для гостей.',
   },
 ];
@@ -29,23 +31,23 @@ const validCapaсities = [
 const minPrisesHousing = [
   {
     type: 'bungalow',
-    prise: '0',
+    price: 0,
   },
   {
     type: 'flat',
-    prise: '1000',
+    price: 1000,
   },
   {
     type: 'hotel',
-    prise: '3000',
+    price: 3000,
   },
   {
     type: 'house',
-    prise: '5000',
+    price: 5000,
   },
   {
     type: 'palace',
-    prise: '10000',
+    price: 10000,
   },
 ];
 
@@ -102,18 +104,18 @@ const userQuantityRooms = formAdvertisement.querySelector('#room_number');
 const userCapacity = formAdvertisement.querySelector('#capacity');
 
 function getValidCapacity(capaсities) {
-  for (let index = 0; index < capaсities.length; index++) {
-    if (userQuantityRooms.value === capaсities[index].rooms) {
+  for (let i = 0; i < capaсities.length; i++) {
+    if (parseInt(userQuantityRooms.value, 10) === capaсities[i].rooms) {
       let isValueValid = false;
-      capaсities[index].guests.forEach((value) =>{
-        if (userCapacity.value === value) {
+      capaсities[i].guests.forEach((value) =>{
+        if (parseInt(userCapacity.value, 10) === value) {
           isValueValid = true;
         }
       });
       if (isValueValid) {
         userCapacity.setCustomValidity('');
       } else {
-        userCapacity.setCustomValidity(capaсities[index].message);
+        userCapacity.setCustomValidity(capaсities[i].message);
       }
     }
   }
@@ -133,10 +135,10 @@ userCapacity.addEventListener('change', () => {
 const userTypeHousing = formAdvertisement.querySelector('#type');
 
 const getMinPrice = (prices) => {
-  for (let index = 0; index < prices.length; index++) {
-    if (userTypeHousing.value === prices[index].type) {
-      userPriceInput.placeholder = prices[index].prise;
-      userPriceInput.min = prices[index].prise;
+  for (let i = 0; i < prices.length; i++) {
+    if (userTypeHousing.value === prices[i].type) {
+      userPriceInput.placeholder = String(prices[i].price);
+      userPriceInput.min = String(prices[i].price);
     }
   }
 };
@@ -160,4 +162,18 @@ userTimeOut.addEventListener('change', () => {
   getTimeInOut(userTimeOut, userTimeIn);
 });
 
-export {addFormDisabled, removeFormDisabled};
+const userAddress = formAdvertisement.querySelector('#address');
+
+const getUserLocation = (location) => {
+  userAddress.value = `${location.lat.toFixed(5)}, ${location.lng.toFixed(5)}`;
+};
+
+getUserLocation(CENTER_TOKIO_COORDINATES);
+
+const resetButton = formAdvertisement.querySelector('.ad-form__reset');
+
+resetButton.addEventListener('click', () => {
+  resetMarker();
+});
+
+export {addFormDisabled, removeFormDisabled, getUserLocation};

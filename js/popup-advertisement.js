@@ -1,4 +1,3 @@
-const mapCanvas = document.querySelector('.map__canvas');
 const popupAdvertisementTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
@@ -81,9 +80,9 @@ function getPhotoList(list, item, images) {
   if (!images) {
     list.remove();
   } else {
-    for (let index = 0; index < images.length; index++) {
+    for (let i = 0; i < images.length; i++) {
       const photo = item.cloneNode(true);
-      photo.src = images[index];
+      photo.src = images[i];
       list.appendChild(photo);
     }
   }
@@ -125,7 +124,7 @@ function createCardAdvertisement(data) {
   photoList.removeChild(photoItem);
   getPhotoList(photoList, photoItem, data.offer.photos);
 
-  mapCanvas.appendChild(advertisementElement);
+  return advertisementElement;
 }
 
 export {createCardAdvertisement};
