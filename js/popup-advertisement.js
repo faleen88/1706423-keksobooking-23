@@ -1,4 +1,3 @@
-const mapCanvas = document.querySelector('.map__canvas');
 const popupAdvertisementTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
@@ -125,7 +124,7 @@ function createCardAdvertisement(data) {
   photoList.removeChild(photoItem);
   getPhotoList(photoList, photoItem, data.offer.photos);
 
-  mapCanvas.appendChild(advertisementElement);
+  return advertisementElement;
 }
 
 export {createCardAdvertisement};

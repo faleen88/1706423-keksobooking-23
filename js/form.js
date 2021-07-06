@@ -1,3 +1,5 @@
+import {CENTER_TOKIO_COORDINATES, resetMarker} from './map.js';
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MIN_PRICE_VALUE = 0;
@@ -160,4 +162,18 @@ userTimeOut.addEventListener('change', () => {
   getTimeInOut(userTimeOut, userTimeIn);
 });
 
-export {addFormDisabled, removeFormDisabled};
+const userAddress = formAdvertisement.querySelector('#address');
+
+const getUserLocation = (location) => {
+  userAddress.value = `${location.lat.toFixed(5)}, ${location.lng.toFixed(5)}`;
+};
+
+getUserLocation(CENTER_TOKIO_COORDINATES);
+
+const resetButton = formAdvertisement.querySelector('.ad-form__reset');
+
+resetButton.addEventListener('click', () => {
+  resetMarker();
+});
+
+export {addFormDisabled, removeFormDisabled, getUserLocation};
