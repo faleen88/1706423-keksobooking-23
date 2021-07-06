@@ -104,10 +104,10 @@ const userQuantityRooms = formAdvertisement.querySelector('#room_number');
 const userCapacity = formAdvertisement.querySelector('#capacity');
 
 function getValidCapacity(capaсities) {
-  for (let index = 0; index < capaсities.length; index++) {
-    if (parseInt(userQuantityRooms.value, 10) === capaсities[index].rooms) {
+  for (let i = 0; i < capaсities.length; i++) {
+    if (parseInt(userQuantityRooms.value, 10) === capaсities[i].rooms) {
       let isValueValid = false;
-      capaсities[index].guests.forEach((value) =>{
+      capaсities[i].guests.forEach((value) =>{
         if (parseInt(userCapacity.value, 10) === value) {
           isValueValid = true;
         }
@@ -115,7 +115,7 @@ function getValidCapacity(capaсities) {
       if (isValueValid) {
         userCapacity.setCustomValidity('');
       } else {
-        userCapacity.setCustomValidity(capaсities[index].message);
+        userCapacity.setCustomValidity(capaсities[i].message);
       }
     }
   }
@@ -135,10 +135,10 @@ userCapacity.addEventListener('change', () => {
 const userTypeHousing = formAdvertisement.querySelector('#type');
 
 const getMinPrice = (prices) => {
-  for (let index = 0; index < prices.length; index++) {
-    if (userTypeHousing.value === prices[index].type) {
-      userPriceInput.placeholder = String(prices[index].price);
-      userPriceInput.min = String(prices[index].price);
+  for (let i = 0; i < prices.length; i++) {
+    if (userTypeHousing.value === prices[i].type) {
+      userPriceInput.placeholder = String(prices[i].price);
+      userPriceInput.min = String(prices[i].price);
     }
   }
 };
