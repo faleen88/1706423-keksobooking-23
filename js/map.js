@@ -2,7 +2,7 @@ import {getAdvertisements, SIMILAR_ADVERTISEMENTS_QUANTITY} from './data.js';
 import {createCardAdvertisement} from './popup-advertisement.js';
 import {getUserLocation} from './form.js';
 
-const CENTER_TOKIO_COORDINATES = {
+const centerTokioCoordinates = {
   lat: 35.681700,
   lng: 139.753891,
 };
@@ -11,7 +11,7 @@ const map = L.map('map-canvas',
   {
     scrollWheelZoom: false,
   })
-  .setView(CENTER_TOKIO_COORDINATES, 12);
+  .setView(centerTokioCoordinates, 12);
 
 const setInit = (activForm, activFilter) => {
   map.on('load', activForm, activFilter);
@@ -25,13 +25,13 @@ L.tileLayer(
 ).addTo(map);
 
 const mainPinIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
+  iconUrl: 'img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
 
 const mainPinMarker = L.marker(
-  CENTER_TOKIO_COORDINATES,
+  centerTokioCoordinates,
   {
     draggable: true,
     icon: mainPinIcon,
@@ -46,8 +46,8 @@ mainPinMarker.on('moveend', (evt) => {
 });
 
 const resetMarker = () => {
-  mainPinMarker.setLatLng(CENTER_TOKIO_COORDINATES);
-  map.setView(CENTER_TOKIO_COORDINATES, 12);
+  mainPinMarker.setLatLng(centerTokioCoordinates);
+  map.setView(centerTokioCoordinates, 12);
 };
 
 const points = getAdvertisements(SIMILAR_ADVERTISEMENTS_QUANTITY);
@@ -56,7 +56,7 @@ const createMarker = (point) => {
   const {location} = point;
 
   const icon = L.icon({
-    iconUrl: '../img/pin.svg',
+    iconUrl: 'img/pin.svg',
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });
@@ -87,4 +87,4 @@ points.forEach((point) => {
   createMarker(point);
 });
 
-export {setInit, CENTER_TOKIO_COORDINATES, resetMarker};
+export {setInit, centerTokioCoordinates, resetMarker};

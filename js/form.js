@@ -1,4 +1,4 @@
-import {CENTER_TOKIO_COORDINATES, resetMarker} from './map.js';
+import {centerTokioCoordinates, resetMarker} from './map.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -168,7 +168,7 @@ const getUserLocation = (location) => {
   userAddress.value = `${location.lat.toFixed(5)}, ${location.lng.toFixed(5)}`;
 };
 
-getUserLocation(CENTER_TOKIO_COORDINATES);
+getUserLocation(centerTokioCoordinates);
 
 const resetButton = formAdvertisement.querySelector('.ad-form__reset');
 
