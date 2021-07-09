@@ -1,6 +1,5 @@
-import {getAdvertisements, SIMILAR_ADVERTISEMENTS_QUANTITY} from './data.js';
 import {createCardAdvertisement} from './popup-advertisement.js';
-import {getUserLocation} from './form.js';
+import {getUserLocation} from './form-validation.js';
 
 const centerTokioCoordinates = {
   lat: 35.681700,
@@ -50,8 +49,6 @@ const resetMarker = () => {
   map.setView(centerTokioCoordinates, 12);
 };
 
-const points = getAdvertisements(SIMILAR_ADVERTISEMENTS_QUANTITY);
-
 const createMarker = (point) => {
   const {location} = point;
 
@@ -83,8 +80,10 @@ const createMarker = (point) => {
     );
 };
 
-points.forEach((point) => {
-  createMarker(point);
-});
+const createSimialrAdvertisement = (advertisements) => {
+  advertisements.forEach((advertisement) => {
+    createMarker(advertisement);
+  });
+};
 
-export {setInit, centerTokioCoordinates, resetMarker};
+export {setInit, centerTokioCoordinates, resetMarker, createSimialrAdvertisement};
