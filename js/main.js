@@ -9,7 +9,7 @@ const SIMILAR_ADVERTISEMENTS_QUANTITY = 10;
 addFormDisabled();
 addFiltersDisabled();
 
-setInit(removeFormDisabled(), removeFiltersDisabled());
+setInit(removeFormDisabled, removeFiltersDisabled);
 
 getData((data) => {
   createSimialrAdvertisement(data.slice(0, SIMILAR_ADVERTISEMENTS_QUANTITY));

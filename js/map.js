@@ -12,8 +12,8 @@ const map = L.map('map-canvas',
   })
   .setView(centerTokioCoordinates, 12);
 
-const setInit = (activForm, activFilter) => {
-  map.on('load', activForm, activFilter);
+const setInit = (activateForm, activateFilter) => {
+  map.on('load', activateForm(), activateFilter());
 };
 
 L.tileLayer(
