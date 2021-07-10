@@ -1,3 +1,5 @@
+const ALERT_SHOW_TIME = 5000;
+
 /**
  * Возвращает случайное число с плавающей точкой
  * Функция взята с сайта https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -38,4 +40,31 @@ function shuffle(array) {
   return array.sort(() => Math.random() - 0.5);
 }
 
-export {getRandomDecimal, getRandomInteger, shuffle};
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = 1000;
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = '100px';
+  alertContainer.style.top = '200px';
+  alertContainer.style.right = '100px';
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.fontWeight = 'bold';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.border = '5px solid red';
+  alertContainer.style.borderRadius = '20px';
+  alertContainer.style.backgroundColor = 'white';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+
+
+export {getRandomDecimal, getRandomInteger, shuffle, showAlert, isEscEvent};

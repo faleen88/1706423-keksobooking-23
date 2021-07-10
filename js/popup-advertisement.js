@@ -10,39 +10,39 @@ const ListHousing = {
   HOTEL: 'Отель',
 };
 
-function getImage(element, image) {
+const getImage = (element, image) => {
   if (!image) {
     element.remove();
   } else {
     return element.src = image;
   }
-}
+};
 
-function getTextElement(element, value) {
+const getTextElement = (element, value) => {
   if (!value) {
     element.remove();
   } else {
     return element.textContent = value;
   }
-}
+};
 
-function getPrice(element, value) {
+const getPrice = (element, value) => {
   if (!value) {
     element.remove();
   } else {
     return element.textContent = `${value} ₽/ночь`;
   }
-}
+};
 
-function getHouseType(element, value) {
+const getHouseType = (element, value) => {
   if (!value) {
     element.remove();
   } else {
     return element.textContent = ListHousing[value];
   }
-}
+};
 
-function getTextCapacity(element, rooms, guests) {
+const getTextCapacity = (element, rooms, guests) => {
   if (!rooms || !guests) {
     element.remove();
   }
@@ -51,17 +51,17 @@ function getTextCapacity(element, rooms, guests) {
   text += (rooms === 1) ? `${rooms} комната для ` : `${rooms} комнаты для `;
   text += (guests === 1) ? `${guests} гостя` : `${guests} гостей`;
   return element.textContent = text;
-}
+};
 
-function getTimeCheckinCheckout(element, timeCheckin, timeCheckout) {
+const getTimeCheckinCheckout = (element, timeCheckin, timeCheckout) => {
   if (!timeCheckin || !timeCheckout) {
     element.remove();
   }
 
   return element.textContent = `Заезд после ${timeCheckin}, выезд до ${timeCheckout}`;
-}
+};
 
-function getFeatureList(list, featureItems, values) {
+const getFeatureList = (list, featureItems, values) => {
   if (!values) {
     list.remove();
   } else {
@@ -74,21 +74,21 @@ function getFeatureList(list, featureItems, values) {
       }
     });
   }
-}
+};
 
-function getPhotoList(list, item, images) {
+const getPhotoList = (list, item, images) => {
   if (!images) {
     list.remove();
   } else {
-    for (let i = 0; i < images.length; i++) {
+    images.forEach((image) => {
       const photo = item.cloneNode(true);
-      photo.src = images[i];
+      photo.src = image;
       list.appendChild(photo);
-    }
+    });
   }
-}
+};
 
-function createCardAdvertisement(data) {
+const createCardAdvertisement = (data) => {
   const advertisementElement = popupAdvertisementTemplate.cloneNode(true);
 
   const avatar = advertisementElement.querySelector('.popup__avatar');
@@ -125,6 +125,6 @@ function createCardAdvertisement(data) {
   getPhotoList(photoList, photoItem, data.offer.photos);
 
   return advertisementElement;
-}
+};
 
 export {createCardAdvertisement};

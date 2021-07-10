@@ -1,4 +1,5 @@
-import {CENTER_TOKIO_COORDINATES, resetMarker} from './map.js';
+import {formAdvertisement} from './state-forms.js';
+import {centerTokioCoordinates} from './map.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -51,23 +52,6 @@ const minPrisesHousing = [
   },
 ];
 
-const formAdvertisement = document.querySelector('.ad-form');
-const interactiveElements = formAdvertisement.querySelectorAll('fieldset');
-
-function addFormDisabled() {
-  formAdvertisement.classList.add('ad-form--disabled');
-  interactiveElements.forEach((element) => {
-    element.setAttribute('disabled', 'disabled');
-  });
-}
-
-function removeFormDisabled() {
-  formAdvertisement.classList.remove('ad-form--disabled');
-  interactiveElements.forEach((element) => {
-    element.removeAttribute('disabled');
-  });
-}
-
 const userTitleInput = formAdvertisement.querySelector('#title');
 
 userTitleInput.addEventListener('input', () => {
@@ -103,7 +87,7 @@ userPriceInput.addEventListener('input', () => {
 const userQuantityRooms = formAdvertisement.querySelector('#room_number');
 const userCapacity = formAdvertisement.querySelector('#capacity');
 
-function getValidCapacity(capaсities) {
+const getValidCapacity = (capaсities) => {
   for (let i = 0; i < capaсities.length; i++) {
     if (parseInt(userQuantityRooms.value, 10) === capaсities[i].rooms) {
       let isValueValid = false;
@@ -122,7 +106,7 @@ function getValidCapacity(capaсities) {
 
   userQuantityRooms.reportValidity();
   userCapacity.reportValidity();
-}
+};
 
 getValidCapacity(validCapaсities);
 userQuantityRooms.addEventListener('change', () => {
@@ -137,8 +121,8 @@ const userTypeHousing = formAdvertisement.querySelector('#type');
 const getMinPrice = (prices) => {
   for (let i = 0; i < prices.length; i++) {
     if (userTypeHousing.value === prices[i].type) {
-      userPriceInput.placeholder = String(prices[i].price);
-      userPriceInput.min = String(prices[i].price);
+      userPriceInput.placeholder = prices[i].price;
+      userPriceInput.min = prices[i].price;
     }
   }
 };
@@ -168,12 +152,6 @@ const getUserLocation = (location) => {
   userAddress.value = `${location.lat.toFixed(5)}, ${location.lng.toFixed(5)}`;
 };
 
-getUserLocation(CENTER_TOKIO_COORDINATES);
+getUserLocation(centerTokioCoordinates);
 
-const resetButton = formAdvertisement.querySelector('.ad-form__reset');
-
-resetButton.addEventListener('click', () => {
-  resetMarker();
-});
-
-export {addFormDisabled, removeFormDisabled, getUserLocation};
+export {getUserLocation};
