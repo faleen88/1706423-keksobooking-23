@@ -49,6 +49,8 @@ const resetMarker = () => {
   map.setView(centerTokioCoordinates, 12);
 };
 
+const markerGroup = L.layerGroup().addTo(map);
+
 const createMarker = (point) => {
   const {location} = point;
 
@@ -71,7 +73,7 @@ const createMarker = (point) => {
   );
 
   marker
-    .addTo(map)
+    .addTo(markerGroup)
     .bindPopup(
       createCardAdvertisement(point),
       {
@@ -80,10 +82,4 @@ const createMarker = (point) => {
     );
 };
 
-const createSimialrAdvertisement = (advertisements) => {
-  advertisements.forEach((advertisement) => {
-    createMarker(advertisement);
-  });
-};
-
-export {setInit, centerTokioCoordinates, resetMarker, createSimialrAdvertisement};
+export {setInit, centerTokioCoordinates, resetMarker, createMarker, markerGroup};

@@ -32,5 +32,5 @@ const removeFiltersDisabled = () => {
   });
 };
 
-export {addFormDisabled, removeFormDisabled, addFiltersDisabled, removeFiltersDisabled, formAdvertisement};
+export {addFormDisabled, removeFormDisabled, addFiltersDisabled, removeFiltersDisabled, formAdvertisement, mapFilters};
 
