@@ -12,8 +12,8 @@ const map = L.map('map-canvas',
   })
   .setView(centerTokioCoordinates, 12);
 
-const setInit = (activForm, activFilter) => {
-  map.on('load', activForm, activFilter);
+const setInit = (activateForm, activateFilter) => {
+  map.on('load', activateForm(), activateFilter());
 };
 
 L.tileLayer(
@@ -49,6 +49,8 @@ const resetMarker = () => {
   map.setView(centerTokioCoordinates, 12);
 };
 
+const markerGroup = L.layerGroup().addTo(map);
+
 const createMarker = (point) => {
   const {location} = point;
 
@@ -71,7 +73,7 @@ const createMarker = (point) => {
   );
 
   marker
-    .addTo(map)
+    .addTo(markerGroup)
     .bindPopup(
       createCardAdvertisement(point),
       {
@@ -80,10 +82,4 @@ const createMarker = (point) => {
     );
 };
 
-const createSimialrAdvertisement = (advertisements) => {
-  advertisements.forEach((advertisement) => {
-    createMarker(advertisement);
-  });
-};
-
-export {setInit, centerTokioCoordinates, resetMarker, createSimialrAdvertisement};
+export {setInit, centerTokioCoordinates, resetMarker, createMarker, markerGroup};

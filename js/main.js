@@ -1,16 +1,22 @@
 import {addFormDisabled, removeFormDisabled, addFiltersDisabled, removeFiltersDisabled} from './state-forms.js';
 import './form-validation.js';
-import './form-submit.js';
-import {setInit, createSimialrAdvertisement} from './map.js';
+import {setUserFormSubmit, clearForm, setUserFormReset} from './form-submit.js';
+import {setInit} from './map.js';
 import {getData} from './api.js';
+import {createSimilarAdvertisement, onmMapFiltersChange} from './form-filters.js';
+import {debounce} from './util.js';
 
-const SIMILAR_ADVERTISEMENTS_QUANTITY = 10;
+const RERENDER_DELAY = 500;
 
 addFormDisabled();
 addFiltersDisabled();
 
-setInit(removeFormDisabled(), removeFiltersDisabled());
+setInit(removeFormDisabled, removeFiltersDisabled);
 
 getData((data) => {
-  createSimialrAdvertisement(data.slice(0, SIMILAR_ADVERTISEMENTS_QUANTITY));
+  createSimilarAdvertisement(data);
+
+  onmMapFiltersChange(debounce(() => createSimilarAdvertisement(data)), RERENDER_DELAY);
+  setUserFormSubmit(clearForm, () => createSimilarAdvertisement(data));
+  setUserFormReset(() => createSimilarAdvertisement(data));
 });
