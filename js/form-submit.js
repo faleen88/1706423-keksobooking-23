@@ -1,4 +1,4 @@
-import {formAdvertisement} from './state-forms.js';
+import {formAdvertisement, mapFilters} from './state-forms.js';
 import {getUserLocation} from './form-validation.js';
 import {centerTokioCoordinates, resetMarker} from './map.js';
 import {isEscEvent} from './util.js';
@@ -10,12 +10,16 @@ const clearForm = () => {
   formAdvertisement.reset();
   getUserLocation(centerTokioCoordinates);
   resetMarker();
+  mapFilters.reset();
 };
 
-resetButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  clearForm();
-});
+const setUserFormReset = (cb) => {
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    clearForm();
+    cb();
+  });
+};
 
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const messageSuccess = successMessageTemplate.cloneNode(true);
@@ -78,13 +82,14 @@ const closeMessageError = () => {
   errorButton.removeEventListener('click', onPopupClickError);
 };
 
-const setUserFormSubmit = (onSuccess) => {
+const setUserFormSubmit = (onSuccess, cb) => {
   formAdvertisement.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
       () => {onSuccess();
         showMessageSuccess(messageSuccess);
+        cb();
       },
       () => showMessageError(messageError, errorButton),
       new FormData(evt.target),
@@ -92,4 +97,4 @@ const setUserFormSubmit = (onSuccess) => {
   });
 };
 
-setUserFormSubmit(clearForm);
+export {setUserFormReset, setUserFormSubmit, clearForm};
