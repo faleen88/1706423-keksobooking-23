@@ -1,10 +1,11 @@
 import {showAlert} from './util.js';
 import {addFiltersDisabled} from './state-forms.js';
 
-const URL = 'https://23.javascript.pages.academy/keksobooking/data';
+const URL_GETTING = 'https://23.javascript.pages.academy/keksobooking/data';
+const URL_DISPATCH = 'https://23.javascript.pages.academy/keksobooking';
 
 const getData = (onSuccess) => {
-  fetch(URL)
+  fetch(URL_GETTING)
     .then((response) => response.json())
     .then((data) => {
       onSuccess(data);
@@ -17,7 +18,7 @@ const getData = (onSuccess) => {
 
 const sendData = (onSuccess, onFail, body) => {
   fetch(
-    'https://23.javascript.pages.academy/keksobooking',
+    URL_DISPATCH,
     {
       method: 'POST',
       body,

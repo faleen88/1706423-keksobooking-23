@@ -127,6 +127,7 @@ const getMinPrice = (prices) => {
   }
 };
 
+getMinPrice(minPrisesHousing);
 userTypeHousing.addEventListener('change', () => {
   getMinPrice(minPrisesHousing);
 });

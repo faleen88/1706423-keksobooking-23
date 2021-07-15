@@ -9,7 +9,7 @@ const onmMapFiltersChange = (cb) => {
   });
 };
 
-const filteredAdvertisements = (advertisement) => {
+const filterAdvertisement = (advertisement) => {
   const houseType = mapFilters.querySelector('#housing-type');
   const housePrice = mapFilters.querySelector('#housing-price');
   const quantityRooms = mapFilters.querySelector('#housing-rooms');
@@ -30,13 +30,13 @@ const filteredAdvertisements = (advertisement) => {
   if (housePrice.value !== 'any') {
     const advertisementPrice = advertisement.offer.price;
     let price;
-    if (advertisementPrice < priceValue.min) {
+    if (advertisementPrice <= priceValue.min) {
       price = 'low';
     }
     if (advertisementPrice > priceValue.max) {
       price = 'high';
     }
-    if (advertisementPrice < priceValue.max && advertisementPrice > priceValue.min) {
+    if (advertisementPrice <= priceValue.max && advertisementPrice > priceValue.min) {
       price = 'middle';
     }
     isPrice = price === housePrice.value;
@@ -65,24 +65,24 @@ const filteredAdvertisements = (advertisement) => {
   return isType && isPrice && isRooms && isGuests && isFeatures;
 };
 
-const filterAd = (array) => {
-  const filteredArray = [];
+const filterAdvertisements = (data) => {
+  const filteredData = [];
 
-  for (let i = 0; i < array.length; i++) {
-    if (filteredAdvertisements(array[i])) {
-      filteredArray.push(array[i]);
-      if (filteredArray.length === SIMILAR_ADVERTISEMENTS_QUANTITY) {
+  for (let i = 0; i < data.length; i++) {
+    if (filterAdvertisement(data[i])) {
+      filteredData.push(data[i]);
+      if (filteredData.length === SIMILAR_ADVERTISEMENTS_QUANTITY) {
         break;
       }
     }
   }
 
-  return filteredArray;
+  return filteredData;
 };
 
 const createSimilarAdvertisement = (advertisements) => {
   markerGroup.clearLayers();
-  filterAd(advertisements).forEach((advertisement) => {
+  filterAdvertisements(advertisements).forEach((advertisement) => {
     createMarker(advertisement);
   });
 };
