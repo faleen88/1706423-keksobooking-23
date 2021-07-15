@@ -5,6 +5,7 @@ import {setInit} from './map.js';
 import {getData} from './api.js';
 import {createSimilarAdvertisement, onmMapFiltersChange} from './form-filters.js';
 import {debounce} from './util.js';
+import './photo-preview.js';
 
 const RERENDER_DELAY = 500;
 
