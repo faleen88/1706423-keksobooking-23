@@ -65,14 +65,26 @@ const filteredAdvertisements = (advertisement) => {
   return isType && isPrice && isRooms && isGuests && isFeatures;
 };
 
+const filterAd = (array) => {
+  const filteredArray = [];
+
+  for (let i = 0; i < array.length; i++) {
+    if (filteredAdvertisements(array[i])) {
+      filteredArray.push(array[i]);
+      if (filteredArray.length === SIMILAR_ADVERTISEMENTS_QUANTITY) {
+        break;
+      }
+    }
+  }
+
+  return filteredArray;
+};
+
 const createSimilarAdvertisement = (advertisements) => {
   markerGroup.clearLayers();
-  advertisements
-    .filter(filteredAdvertisements)
-    .slice(0, SIMILAR_ADVERTISEMENTS_QUANTITY)
-    .forEach((advertisement) => {
-      createMarker(advertisement);
-    });
+  filterAd(advertisements).forEach((advertisement) => {
+    createMarker(advertisement);
+  });
 };
 
 export {createSimilarAdvertisement, onmMapFiltersChange};
