@@ -3,7 +3,7 @@ import {createMarker, markerGroup} from './map.js';
 
 const SIMILAR_ADVERTISEMENTS_QUANTITY = 10;
 
-const onmMapFiltersChange = (cb) => {
+const onMapFiltersChange = (cb) => {
   mapFilters.addEventListener('change', () => {
     cb();
   });
@@ -87,4 +87,4 @@ const createSimilarAdvertisement = (advertisements) => {
   });
 };
 
-export {createSimilarAdvertisement, onmMapFiltersChange};
+export {createSimilarAdvertisement, onMapFiltersChange};

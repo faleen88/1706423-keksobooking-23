@@ -91,10 +91,10 @@ const setUserFormSubmit = (onSuccess, cb) => {
 
     sendData(
       () => {onSuccess();
-        showMessageSuccess(messageSuccess);
+        showMessageSuccess();
         cb();
       },
-      () => showMessageError(messageError, errorButton),
+      () => showMessageError(),
       new FormData(evt.target),
     );
   });
