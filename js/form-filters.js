@@ -3,13 +3,13 @@ import {createMarker, markerGroup} from './map.js';
 
 const SIMILAR_ADVERTISEMENTS_QUANTITY = 10;
 
-const onmMapFiltersChange = (cb) => {
+const onMapFiltersChange = (cb) => {
   mapFilters.addEventListener('change', () => {
     cb();
   });
 };
 
-const filteredAdvertisements = (advertisement) => {
+const filterAdvertisement = (advertisement) => {
   const houseType = mapFilters.querySelector('#housing-type');
   const housePrice = mapFilters.querySelector('#housing-price');
   const quantityRooms = mapFilters.querySelector('#housing-rooms');
@@ -30,13 +30,13 @@ const filteredAdvertisements = (advertisement) => {
   if (housePrice.value !== 'any') {
     const advertisementPrice = advertisement.offer.price;
     let price;
-    if (advertisementPrice < priceValue.min) {
+    if (advertisementPrice <= priceValue.min) {
       price = 'low';
     }
     if (advertisementPrice > priceValue.max) {
       price = 'high';
     }
-    if (advertisementPrice < priceValue.max && advertisementPrice > priceValue.min) {
+    if (advertisementPrice <= priceValue.max && advertisementPrice > priceValue.min) {
       price = 'middle';
     }
     isPrice = price === housePrice.value;
@@ -65,14 +65,26 @@ const filteredAdvertisements = (advertisement) => {
   return isType && isPrice && isRooms && isGuests && isFeatures;
 };
 
-const createSimilarAdvertisement = (advertisements) => {
-  markerGroup.clearLayers();
-  advertisements
-    .filter(filteredAdvertisements)
-    .slice(0, SIMILAR_ADVERTISEMENTS_QUANTITY)
-    .forEach((advertisement) => {
-      createMarker(advertisement);
-    });
+const filterAdvertisements = (data) => {
+  const filteredData = [];
+
+  for (let i = 0; i < data.length; i++) {
+    if (filterAdvertisement(data[i])) {
+      filteredData.push(data[i]);
+      if (filteredData.length === SIMILAR_ADVERTISEMENTS_QUANTITY) {
+        break;
+      }
+    }
+  }
+
+  return filteredData;
 };
 
-export {createSimilarAdvertisement, onmMapFiltersChange};
+const createSimilarAdvertisement = (advertisements) => {
+  markerGroup.clearLayers();
+  filterAdvertisements(advertisements).forEach((advertisement) => {
+    createMarker(advertisement);
+  });
+};
+
+export {createSimilarAdvertisement, onMapFiltersChange};

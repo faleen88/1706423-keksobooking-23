@@ -10,13 +10,13 @@ const ALERT_SHOW_TIME = 5000;
  * @returns {Number} - случайное число с плавающей точкой
  */
 
-function getRandomDecimal(min, max, simbolsAfterComma = 0) {
+const getRandomDecimal = (min, max, simbolsAfterComma = 0) => {
   if (min >= max || min < 0 || max < 0) {
     throw 'Неверные параметры';
   }
   const randomNumber = (Math.random() * (max - min) + min).toFixed(simbolsAfterComma);
   return Number(randomNumber);
-}
+};
 
 /**
  * Возвращает случайное целое число
@@ -26,9 +26,7 @@ function getRandomDecimal(min, max, simbolsAfterComma = 0) {
  * @returns {Number} - случайное целое число
  */
 
-function getRandomInteger(min, max) {
-  return Math.floor(getRandomDecimal(min, max));
-}
+const getRandomInteger = (min, max) => Math.floor(getRandomDecimal(min, max));
 
 /**
  * Возвращает перемешанный массив
@@ -36,9 +34,7 @@ function getRandomInteger(min, max) {
  * @param {Array} array - массив, значения которого нужно перемешать
  * @returns {Array} - перемешанный массив
  */
-function shuffle(array) {
-  return array.sort(() => Math.random() - 0.5);
-}
+const shuffle = (array) => array.sort(() => Math.random() - 0.5);
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');

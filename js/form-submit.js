@@ -3,6 +3,7 @@ import {getUserLocation} from './form-validation.js';
 import {centerTokioCoordinates, resetMarker} from './map.js';
 import {isEscEvent} from './util.js';
 import {sendData} from './api.js';
+import {removeAvatar, removePhoto} from './photo-preview.js';
 
 const resetButton = formAdvertisement.querySelector('.ad-form__reset');
 
@@ -11,6 +12,8 @@ const clearForm = () => {
   getUserLocation(centerTokioCoordinates);
   resetMarker();
   mapFilters.reset();
+  removeAvatar();
+  removePhoto();
 };
 
 const setUserFormReset = (cb) => {
@@ -88,10 +91,10 @@ const setUserFormSubmit = (onSuccess, cb) => {
 
     sendData(
       () => {onSuccess();
-        showMessageSuccess(messageSuccess);
+        showMessageSuccess();
         cb();
       },
-      () => showMessageError(messageError, errorButton),
+      () => showMessageError(),
       new FormData(evt.target),
     );
   });
