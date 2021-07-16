@@ -1,41 +1,5 @@
 const ALERT_SHOW_TIME = 5000;
 
-/**
- * Возвращает случайное число с плавающей точкой
- * Функция взята с сайта https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
- *
- * @param {Number} min - минимальное значение
- * @param {Number} max - максимальное значение
- * @param {Number} simbolsAfterComma - колличество знаков после запятой
- * @returns {Number} - случайное число с плавающей точкой
- */
-
-const getRandomDecimal = (min, max, simbolsAfterComma = 0) => {
-  if (min >= max || min < 0 || max < 0) {
-    throw 'Неверные параметры';
-  }
-  const randomNumber = (Math.random() * (max - min) + min).toFixed(simbolsAfterComma);
-  return Number(randomNumber);
-};
-
-/**
- * Возвращает случайное целое число
- *
- * @param {Number} min - минимальное значение
- * @param {Number} max - максимальное значение
- * @returns {Number} - случайное целое число
- */
-
-const getRandomInteger = (min, max) => Math.floor(getRandomDecimal(min, max));
-
-/**
- * Возвращает перемешанный массив
- *
- * @param {Array} array - массив, значения которого нужно перемешать
- * @returns {Array} - перемешанный массив
- */
-const shuffle = (array) => array.sort(() => Math.random() - 0.5);
-
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = 1000;
@@ -83,4 +47,4 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-export {getRandomDecimal, getRandomInteger, shuffle, showAlert, isEscEvent, debounce};
+export {showAlert, isEscEvent, debounce};
