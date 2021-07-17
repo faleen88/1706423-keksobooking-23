@@ -6,6 +6,20 @@ const centerTokioCoordinates = {
   lng: 139.753891,
 };
 
+const mainPinParameters = {
+  width: 52,
+  height: 52,
+  anchorX: 26,
+  anchorY: 52,
+};
+
+const pinParameters = {
+  width: 40,
+  height: 40,
+  anchorX: 20,
+  anchorY: 40,
+};
+
 const map = L.map('map-canvas',
   {
     scrollWheelZoom: false,
@@ -25,8 +39,8 @@ L.tileLayer(
 
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconSize: [mainPinParameters.width, mainPinParameters.height],
+  iconAnchor: [mainPinParameters.anchorX, mainPinParameters.anchorY],
 });
 
 const mainPinMarker = L.marker(
@@ -56,8 +70,8 @@ const createMarker = (point) => {
 
   const icon = L.icon({
     iconUrl: 'img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconSize: [pinParameters.width, pinParameters.height],
+    iconAnchor: [pinParameters.anchorX, pinParameters.anchorY],
   });
 
   const lat = location.lat;
